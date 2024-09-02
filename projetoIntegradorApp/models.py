@@ -16,3 +16,8 @@ class Denuncia(models.Model):
     endereco = models.CharField(max_length=255)
     observacao = models.TextField()
     imagem = models.TextField()
+    
+class Denuncia(models.Model):
+    endereco = models.CharField(max_length=255)
+    observacao = models.TextField()
+    imagem = models.TextField()
