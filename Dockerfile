@@ -14,24 +14,15 @@ COPY . /app/
 # Exponha a porta do servidor Django (8000)
 EXPOSE 8000
 
-
-
-
-
-
-
-
-
-
-ENV DJANGO_SETTINGS_MODULE=projetoIntegrador.settings
-
-# Defina variáveis de ambiente para o superusuário
-ENV DJANGO_SUPERUSER_USERNAME=dalpiaz \
+# Defina variáveis de ambiente para o Django, exceto a senha
+ENV DJANGO_SETTINGS_MODULE=projetoIntegrador.settings \
+    DJANGO_SUPERUSER_USERNAME=dalpiaz \
     DJANGO_SUPERUSER_EMAIL=gabriel666dalpiaz@gmail.com \
     DJANGO_SUPERUSER_PASSWORD=admin
 
-# Executar migrações e criar superusuário
-RUN python manage.py migrate && python start.py || true
+# Executar migrações e criar superusuário sem senha
+RUN python manage.py migrate \
+    && python manage.py createsuperuser --noinput || true
 
 # Comando para rodar a aplicação
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
